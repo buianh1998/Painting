@@ -1,0 +1,29 @@
+{
+    "name": "painting",
+    "version": "1.0.0",
+    "description": "my Project ",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "babel-node src/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/buianh1998/Painting.git"
+    },
+    "author": "buianh1998",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/buianh1998/Painting/issues"
+    },
+    "homepage": "https://github.com/buianh1998/Painting#readme",
+    "dependencies": {
+        "bluebird": "^3.7.2",
+        "express": "^4.17.1",
+        "mongoose": "^5.9.6"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-preset-env": "^1.7.0"
+    }
+}
