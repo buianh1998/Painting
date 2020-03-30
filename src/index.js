@@ -1,11 +1,11 @@
 import express from "express";
 import connectDB from "./config/connectDB";
 import categoryModel from "./models/categori.model";
+
 var app = express();
 //connect Mongodb
 connectDB();
-var hostname = "localhost";
-var port = 3000;
+
 app.get("/", async (req, res, next) => {
     try {
         let item = {
@@ -17,6 +17,8 @@ app.get("/", async (req, res, next) => {
         next(error);
     }
 });
-app.listen(port, hostname, () => {
-    console.log(`Hello Man, I'm running at ${hostname}:${port} `);
+require("dotenv").config({});
+
+app.listen(process.env.APP_PORT, process.env.APP_HOSTNAME, () => {
+    console.log(`Hello Man, I'm running at ${process.env.APP_HOSTNAME}:${process.env.APP_PORT} `);
 });
