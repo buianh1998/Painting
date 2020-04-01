@@ -1,21 +1,13 @@
 import express from "express";
 import connectDB from "./config/connectDB";
 import categoryModel from "./models/categori.model";
-
+import configEngine from "./config/viewEngine";
 var app = express();
 //connect Mongodb
 connectDB();
-
-app.get("/", async (req, res, next) => {
-    try {
-        let item = {
-            Title: "Tranh bộ năm"
-        };
-        let categoriItem = await categoryModel.createItem(item);
-        res.json({ kq: true, dataCate: categoriItem });
-    } catch (error) {
-        next(error);
-    }
+configEngine(app);
+app.get("/", (req, res) => {
+    return res.render("admin/admin");
 });
 require("dotenv").config({});
 
