@@ -1,0 +1,80 @@
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Thêm mới loại sản phẩm</h4>
+            <form class="needs-validation" novalidate>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="validationCustom03">Tên loại sản phẩm</label>
+                        <input type="text" class="form-control" id="validationCustom03" placeholder="Tên loại sản phẩm" required />
+                        <div class="invalid-feedback">
+                            Làm ơn nhập tên loại.
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Thêm mới loại</button>
+            </form>
+            <script>
+                // Example starter JavaScript for disabling form submissions if there are invalid fields
+                (function() {
+                    "use strict";
+                    window.addEventListener(
+                        "load",
+                        function() {
+                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                            var forms = document.getElementsByClassName("needs-validation");
+                            // Loop over them and prevent submission
+                            var validation = Array.prototype.filter.call(forms, function(form) {
+                                form.addEventListener(
+                                    "submit",
+                                    function(event) {
+                                        if (form.checkValidity() === false) {
+                                            event.preventDefault();
+                                            event.stopPropagation();
+                                        }
+                                        form.classList.add("was-validated");
+                                    },
+                                    false
+                                );
+                            });
+                        },
+                        false
+                    );
+                })();
+            </script>
+        </div>
+    </div>
+</div>
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Danh sách loại sản phẩm</h4>
+            <div class="table-responsive">
+                <table class="table color-table primary-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Tên Loại Sản Phẩm</th>
+                            <th>Ngày Tạo</th>
+                            <th>Ngày Cập Nhật</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Nigam</td>
+                            <td>Eichmann</td>
+                            <td>@Sonu</td>
+                            <th>
+                                <button class="btn btn-success" type="submit">Sửa</button>
+                                <button class="btn btn-danger" type="submit">Xóa</button>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
