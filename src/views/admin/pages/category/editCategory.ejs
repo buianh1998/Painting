@@ -1,0 +1,56 @@
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Chỉnh sửa loại sản phẩm</h4>
+            <form class="needs-validation" action="/admin/category/edit-cate/<%= cateId._id%>" method="POST" novalidate>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="validationCustom01">Tên loại sản phẩm</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="title"
+                            id="validationCustom01"
+                            placeholder="Tên loại sản phẩm"
+                            value="<%= cateId.title%>"
+                            required
+                        />
+                        <div class="invalid-feedback">
+                            Làm ơn nhập tên loại.
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Cập nhật loại</button>
+            </form>
+            <script>
+                // Example starter JavaScript for disabling form submissions if there are invalid fields
+                (function () {
+                    "use strict";
+                    window.addEventListener(
+                        "load",
+                        function () {
+                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                            var forms = document.getElementsByClassName("needs-validation");
+                            // Loop over them and prevent submission
+                            var validation = Array.prototype.filter.call(forms, function (form) {
+                                form.addEventListener(
+                                    "submit",
+                                    function (event) {
+                                        if (form.checkValidity() === false) {
+                                            event.preventDefault();
+                                            event.stopPropagation();
+                                        }
+                                        form.classList.add("was-validated");
+                                    },
+                                    false
+                                );
+                            });
+                        },
+                        false
+                    );
+                })();
+            </script>
+        </div>
+    </div>
+</div>
