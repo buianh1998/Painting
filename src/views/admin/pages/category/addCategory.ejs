@@ -61,7 +61,6 @@
                 <table class="table color-table primary-table">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>Tên Loại Sản Phẩm</th>
                             <th>Ngày Tạo</th>
                             <th>Ngày Cập Nhật</th>
@@ -71,10 +70,9 @@
                     <tbody>
                         <%datacate.forEach(cate =>{%>
                         <tr>
-                            <td><%= count + 2%></td>
                             <td><%= cate.title%></td>
                             <td><%= cate.createdAt%></td>
-                            <td><%= cate.updateAt%></td>
+                            <td><%= cate.updatedAt%></td>
                             <th>
                                 <button
                                     class="btn btn-success"
@@ -83,7 +81,13 @@
                                 >
                                     Sửa
                                 </button>
-                                <button class="btn btn-danger" type="submit">Xóa</button>
+                                <button
+                                    class="btn btn-danger"
+                                    type="submit"
+                                    onclick="location.href=`http://localhost:3000/admin/category/remove-cate/<%= cate._id%>`"
+                                >
+                                    Xóa
+                                </button>
                             </th>
                         </tr>
                         <%})%>

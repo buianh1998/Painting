@@ -42,9 +42,19 @@ let updateCate = async (req, res) => {
         res.status(500).send(error);
     }
 };
+let removeCate = async (req, res) => {
+    try {
+        let idCate = req.params.idcate;
+        await category.removeCate(idCate);
+        res.redirect("/admin/category");
+    } catch (error) {
+        res.status(500).send(error);
+    }
+};
 module.exports = {
     findCate: findCate,
     findIdCate: findIdCate,
     createCate: createCate,
     updateCate: updateCate,
+    removeCate: removeCate,
 };

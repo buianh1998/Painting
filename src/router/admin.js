@@ -8,6 +8,7 @@ let routerInit = (app) => {
     router.get("/category/edit-cate/:idcate", category.findIdCate);
     router.post("/category/edit-cate/:idcate", category.updateCate);
     router.post("/category/add-category", category.createCate);
+    router.get("/category/remove-cate/:idcate", category.removeCate);
     app.use("/admin", router);
 };
 

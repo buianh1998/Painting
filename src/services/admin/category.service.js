@@ -26,9 +26,13 @@ let findIdCate = (idCate) => {
 let updateCate = (idCate, item) => {
     return categoryModel.updateCate(idCate, item);
 };
+let removeCate = async (idCate) => {
+    return categoryModel.removeCate(idCate);
+};
 module.exports = {
     findCate: findCate,
     findIdCate: findIdCate,
     createCate: createCate,
     updateCate: updateCate,
+    removeCate: removeCate,
 };
