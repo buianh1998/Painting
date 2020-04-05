@@ -34,5 +34,8 @@ categoriSchema.statics = {
     updateCate(idCate, item) {
         return this.findByIdAndUpdate(idCate, item);
     },
+    removeCate(idCate) {
+        return this.remove({ _id: idCate });
+    },
 };
 module.exports = mongosee.model("categori", categoriSchema);
