@@ -35,7 +35,10 @@ categoriSchema.statics = {
         return this.findByIdAndUpdate(idCate, item);
     },
     removeCate(idCate) {
-        return this.remove({ _id: idCate });
+        return this.findByIdAndDelete({ _id: idCate }).exec();
+    },
+    findByTitle(item) {
+        return this.findOne({ title: item }).exec();
     },
 };
 module.exports = mongosee.model("categori", categoriSchema);

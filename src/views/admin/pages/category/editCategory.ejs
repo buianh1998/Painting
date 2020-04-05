@@ -2,6 +2,9 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">Chỉnh sửa loại sản phẩm</h4>
+            <%if(errors){%> <%errors.forEach(item =>{%>
+            <h4 class="alert alert-danger col-8"><%=item%></h4>
+            <%})%> <%}%>
             <form class="needs-validation" action="/admin/category/edit-cate/<%= cateId._id%>" method="POST" novalidate>
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
@@ -20,7 +23,9 @@
                         </div>
                     </div>
                 </div>
-
+                <button class="btn btn-info" type="button" onclick="location.href=`/admin/category`;">
+                    Trở lại trang trước
+                </button>
                 <button class="btn btn-primary" type="submit">Cập nhật loại</button>
             </form>
             <script>
