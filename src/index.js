@@ -3,14 +3,19 @@ import connectDB from "./config/connectDB";
 import configEngine from "./config/viewEngine";
 import routerInit from "./router/admin";
 import bodyParser from "body-parser";
-
+import configSession from "./config/configSession";
+import connectFlash from "connect-flash";
 var app = express();
 //connect Mongodb
 connectDB();
+//congig session
+configSession(app);
 //config view ejs for project
 configEngine(app);
 //config bodyParser for project
 app.use(bodyParser.urlencoded({ extended: true }));
+//connect flash
+app.use(connectFlash());
 //config router for project
 routerInit(app);
 //config dotenv for project
