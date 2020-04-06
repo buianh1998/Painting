@@ -72,9 +72,9 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="list-category">
                         <%datacate.forEach(cate =>{%>
-                        <tr>
+                        <tr class="data-category" data-idcate="<%= cate._id%>">
                             <td><%= cate.title%></td>
                             <td><%= cate.createdAt%></td>
                             <td><%= cate.updatedAt%></td>
@@ -86,15 +86,12 @@
                                 >
                                     Sửa
                                 </button>
-                                <button
-                                    class="btn btn-danger"
-                                    type="submit"
-                                    onclick="location.href=`http://localhost:3000/admin/category/remove-cate/<%= cate._id%>`"
-                                >
+                                <button class="btn btn-danger btn-delete-cate" type="button" data-idcate="<%= cate._id%>">
                                     Xóa
                                 </button>
                             </th>
                         </tr>
+
                         <%})%>
                     </tbody>
                 </table>
