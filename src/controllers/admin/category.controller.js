@@ -88,9 +88,11 @@ let updateCate = async (req, res) => {
 };
 let removeCate = async (req, res) => {
     try {
-        let idCate = req.params.idcate;
-        await category.removeCate(idCate);
-        res.redirect("/admin/category");
+        let idCate = req.body.idcate;
+        console.log(idCate);
+
+        let removeCate = await category.removeCate(idCate);
+        res.status(200).send({ success: !!removeCate });
     } catch (error) {
         res.status(500).send(error);
     }
