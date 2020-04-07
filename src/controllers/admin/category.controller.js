@@ -89,8 +89,6 @@ let updateCate = async (req, res) => {
 let removeCate = async (req, res) => {
     try {
         let idCate = req.body.idcate;
-        console.log(idCate);
-
         let removeCate = await category.removeCate(idCate);
         res.status(200).send({ success: !!removeCate });
     } catch (error) {
