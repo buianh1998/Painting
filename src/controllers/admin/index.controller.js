@@ -1,9 +1,9 @@
 import category from "./category.controller";
-let layoutAdmin = (req, res) => {
-    res.render("admin/admin", { page: "admin/layoutAdmin" });
-};
+import product from "./product.controller";
+import admin from "./admin.controller";
 
 module.exports = {
-    layoutAdmin: layoutAdmin,
-    category: category
+    admin: admin,
+    category: category,
+    product: product,
 };
