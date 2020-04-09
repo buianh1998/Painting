@@ -4,6 +4,9 @@ export const transErrors = {
 };
 export const transProductErrors = {
     title_product_incorrect: "Tên sản phẩm phải là chữ không được phép có ký tự và có độ dài từ 7 tới 40 chữ",
+    price_product_incorrect: "Gía sản phẩm phải là số và từ 10000 tới 9 triệu đồng",
+    description_product_incorrect: "Mô tả sản phẩm phải chữ và từ độ dài từ 10 tới 3000 từ",
+    amount_product_incorrect: "số lượng sản phẩm phải là số và từ 1 tới 100 chiếc",
     image_product_incorrect: " File phải là file ảnh jpg hoặc png",
     iamge_product_limit: "Kích thước file phải dưới 2MB",
     title_in_product: "Tên sản phẩm trên đã tồn tại hãy nhập tên sản phẩm khác",

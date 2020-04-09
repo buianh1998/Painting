@@ -32,6 +32,17 @@ let getProduct = async (req, res) => {
 let createProduct = (req, res) => {
     let errArr = [];
     let successArr = [];
+    // let errorValid = validationResult(req);
+    // console.log(errorValid.mapped());
+
+    // if (!errorValid.isEmpty()) {
+    //     let errors = Object.values(errorValid.mapped());
+    //     errors.forEach((item) => {
+    //         errArr.push(item.msg);
+    //     });
+    //     req.flash("errors", errArr);
+    //     return res.redirect("/admin/product");
+    // }
     upload(req, res, async (errImage) => {
         if (errImage) {
             if (errImage.message) {
@@ -39,8 +50,6 @@ let createProduct = (req, res) => {
                 req.flash("errors", errArr);
                 return res.redirect("/admin/product");
             }
-            console.log(errImage);
-
             errArr.push(errImage);
             req.flash("errors", errArr);
             return res.redirect("/admin/product");
@@ -66,7 +75,75 @@ let createProduct = (req, res) => {
         }
     });
 };
+let findProductById = async (req, res) => {
+    let { idProduct } = req.params;
+    let dataIdProduct = await product.findProductById(idProduct);
+    let dataCategory = await category.findCate();
+
+    return res.render("admin/blocks/content/content", {
+        page: "product/editProduct",
+        dataIdProduct: dataIdProduct,
+        dataCategory: dataCategory,
+        errors: req.flash("errors"),
+        success: req.flash("success"),
+    });
+};
+let updateProduct = (req, res) => {
+    let { idProduct } = req.params;
+    let errArr = [];
+    let successArr = [];
+    upload(req, res, async (errImage) => {
+        if (errImage) {
+            if (errImage.message) {
+                errArr.push(transProductErrors.iamge_product_limit);
+                req.flash("errors", errArr);
+                return res.redirect(`/admin/product/edit-product/${idProduct}`);
+            }
+            errArr.push(errImage);
+            req.flash("errors", errArr);
+            return res.redirect(`/admin/product/edit-product/${idProduct}`);
+        }
+        let ImgCate = req.body.image;
+        // if (typeof ImgCate === "undefined") {
+        //     ImgCate = req.file.filename;
+        // }
+        console.log(req.body.image);
+
+        let { title, price, amount, idCate, description } = req.body;
+        let item = {
+            title,
+            price,
+            description,
+            amount,
+            image: typeof req.file !== "undefined" ? req.file.filename : req.body.image,
+            idCate,
+        };
+        try {
+            await product.updateProduct(idProduct, item);
+            successArr.push(transSuccess.update_product_success);
+            req.flash("success", successArr);
+            return res.redirect("/admin/product");
+        } catch (error) {
+            errArr.push(error);
+            req.flash("errors", errArr);
+            return res.redirect(`/admin/product/edit-product/${idProduct}`);
+        }
+    });
+};
+let removeProduct = async (req, res) => {
+    try {
+        let idProduct = req.body.idProduct;
+        let removeProduct = await product.removeProduct(idProduct);
+        res.status(200).send({ success: !!removeProduct });
+    } catch (error) {
+        console.log(errors);
+        res.send(error);
+    }
+};
 module.exports = {
     getProduct: getProduct,
+    findProductById: findProductById,
     createProduct: createProduct,
+    updateProduct: updateProduct,
+    removeProduct: removeProduct,
 };

@@ -13,7 +13,8 @@ configSession(app);
 //config view ejs for project
 configEngine(app);
 //config bodyParser for project
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 //connect flash
 app.use(connectFlash());
 //config router for project

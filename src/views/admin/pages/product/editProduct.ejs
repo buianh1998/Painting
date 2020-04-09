@@ -1,13 +1,19 @@
 <div class="col-12">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Thêm mới sản phẩm</h4>
+            <h4 class="card-title">Cập nhật sản phẩm</h4>
             <%if(errors){%> <%errors.forEach(item =>{%>
             <h4 class="alert alert-danger col-8"><%=item%></h4>
             <%})%> <%}%> <%if(success){%> <%success.forEach(item =>{%>
             <h4 class="alert alert-success col-8"><%=item%></h4>
             <%})%> <%}%>
-            <form class="needs-validation" action="/admin/product/add-product" method="POST" enctype="multipart/form-data" novalidate="">
+            <form
+                class="needs-validation"
+                action="/admin/product/edit-product/<%= dataIdProduct._id%>"
+                method="POST"
+                enctype="multipart/form-data"
+                novalidate=""
+            >
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom01">Tên Sản Phẩm</label>
@@ -18,6 +24,7 @@
                             name="title"
                             placeholder="Nhập tên sản phẩm"
                             required=""
+                            value="<%= dataIdProduct.title%>"
                         />
                         <div class="invalid-feedback">
                             Tên sản phẩm không được để trống
@@ -31,6 +38,7 @@
                             id="validationCustom02"
                             name="price"
                             placeholder="Nhập giá sản phẩm"
+                            value="<%= dataIdProduct.price%>"
                             required=""
                         />
                         <div class="invalid-feedback">
@@ -46,6 +54,7 @@
                                 id="validationCustom03"
                                 name="amount"
                                 placeholder="Nhập số lượng"
+                                value="<%= dataIdProduct.amount%>"
                                 required=""
                             />
                             <div class="invalid-feedback">
@@ -59,7 +68,7 @@
                         <label for="validationCustom04">Loại Sản Phẩm</label>
                         <select class="form-control" id="validationCustom04" name="idCate" placeholder="State" required="">
                             <%dataCategory.forEach(cate =>{%>
-                            <option value="<%= cate._id%>"><%= cate.title%></option>
+                            <option value="<%= cate._id%>" <%= JSON.stringify(cate._id) == JSON.stringify(dataIdProduct.idCate._id) ? 'selected' :"" %> ><%= cate.title%></option>
                             <%})%>
                         </select>
                         <div class="invalid-feedback">
@@ -67,8 +76,9 @@
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="validationCustom05">Ảnh Sản Phẩm</label>
-                        <input type="file" class="form-control" name="image" id="validationCustom05" required="" />
+                        <label >Ảnh Sản Phẩm :</label>
+                        <img src="uploads/imageproduct/<%= dataIdProduct.image%>" alt="user" width="40" style="margin:0 0px 6px 10px;" class="img-circle" />
+                        <input type="file" class="form-control" value="<%=dataIdProduct.image %>" name="image" />
                         <div class="invalid-feedback">
                             Làm ơn nhập ảnh.
                         </div>
@@ -77,7 +87,6 @@
                 <div class="form-row">
                     <div class="col-md-12 mb-3">
                         <label for="validationCustom03">Mô Tả Sản Phẩm</label>
-
                         <textarea
                             type="text"
                             class="form-control"
@@ -86,13 +95,16 @@
                             placeholder="Nhập mô tả"
                             aria-describedby="inputGroupPrepend"
                             required=""
-                        ></textarea>
+                        >
+                        <%= dataIdProduct.description%>
+                        </textarea>
                         <div class="invalid-feedback">
                             Mô tả không được trống.
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-success" type="submit">Thêm Mới</button>
+                <button class="btn btn-info" type="button" onclick="window.location.href='/admin/product';">Trở lại trang trước</button>
+                <button class="btn btn-primary" type="submit">Cập nhật sản phẩm</button>
             </form>
             <script>
                 // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -122,70 +134,6 @@
                     );
                 })();
             </script>
-        </div>
-    </div>
-</div>
-<div class="card">
-    <div class="card-body">
-        <h4 class="card-title">Danh sách sản phẩm</h4>
-        <h6 class="card-subtitle"></h6>
-
-        <!-- Add Contact Popup Model -->
-
-        <div class="table-responsive">
-            <table
-                id="demo-foo-addrow"
-                class="table table-bordered m-t-30 table-hover contact-list footable footable-5 footable-paging footable-paging-center breakpoint-xs"
-                data-paging="true"
-                data-paging-size="7"
-            >
-                <thead>
-                    <tr class="footable-header">
-                        <th class="footable-first-visible" style="display: table-cell;">STT</th>
-                        <th style="display: table-cell;">Tên Sản Phẩm</th>
-                        <th style="display: table-cell;">Giá</th>
-                        <th style="display: table-cell;">Mô Tả</th>
-                        <th style="display: table-cell;">Số Lượng</th>
-                        <th style="display: table-cell;">Thuộc Loại</th>
-                        <th style="display: table-cell;">Hình Ảnh</th>
-                        <th class="footable-last-visible" style="display: table-cell;"></th>
-                    </tr>
-                </thead>
-                <tbody id="list-product">
-                    <%dataProduct.forEach((product,index) =>{%>
-                    <tr class="data-product" data-idProduct="<%= product._id%>">
-                        <td class="footable-first-visible" style="display: table-cell;"><%= index + 1%></td>
-                        <td class="footable-last-visible" style="display: table-cell;"><%= product.title%></td>
-
-                        <td style="display: table-cell;"><%= product.price%></td>
-                        <%if(product.description.length > 20){%>
-                        <td style="display: table-cell;"><%= product.description.substr(0,18)%><span>...</span></td>
-                        <%}else{%>
-                        <td style="display: table-cell;"><%= product.description%>></td>
-                        <%}%>
-                        <td style="display: table-cell;"><%= product.amount%></td>
-                        <td style="display: table-cell;"><%= product.idCate.title%></td>
-                        <td style="display: table-cell;">
-                            <a href="#"><img src="uploads/imageproduct/<%= product.image%>" alt="user" width="40" class="img-circle" /> </a>
-                        </td>
-                        <td>
-                            <button
-                                class="btn waves-effect waves-light btn-info"
-                                onclick="window.location.href='/admin/product/edit-product/<%= product._id%>';"
-                            >
-                                <i class="fas fa-pencil-alt"></i>
-                            </button>
-                            <button class="btn btn-success">
-                                <i class="mdi mdi-magnify"></i>
-                            </button>
-                            <button class="btn waves-effect waves-light btn-primary btn-delete-product" data-idproduct="<%= product._id%>">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <%})%>
-                </tbody>
-            </table>
         </div>
     </div>
 </div>
