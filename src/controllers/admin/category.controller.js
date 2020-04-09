@@ -16,10 +16,10 @@ let findCate = async (req, res) => {
         res.status(500).send(error);
     }
 };
-let findIdCate = async (req, res) => {
+let findCateById = async (req, res) => {
     try {
         let idCate = req.params.idcate;
-        let dataIdCate = await category.findIdCate(idCate);
+        let dataIdCate = await category.findCateById(idCate);
         res.render("admin/blocks/content/content", {
             page: "category/editCategory",
             cateId: dataIdCate,
@@ -35,6 +35,8 @@ let createCate = async (req, res) => {
     let errArr = [];
     let success = [];
     let validationError = validationResult(req);
+    console.log(validationError.mapped());
+
     if (!validationError.isEmpty()) {
         // Object.values() lấy tất cả các value của Object bạn đầu và nhóm lại thành 1 cái mảng
         let errors = Object.values(validationError.mapped());
@@ -97,7 +99,7 @@ let removeCate = async (req, res) => {
 };
 module.exports = {
     findCate: findCate,
-    findIdCate: findIdCate,
+    findCateById: findCateById,
     createCate: createCate,
     updateCate: updateCate,
     removeCate: removeCate,

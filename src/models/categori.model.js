@@ -16,7 +16,7 @@ categoriSchema.statics = {
      * find by id Cate
      * @param {string} idCate
      */
-    findIdCate(idCate) {
+    findCateById(idCate) {
         return this.findById({ _id: idCate });
     },
     /**

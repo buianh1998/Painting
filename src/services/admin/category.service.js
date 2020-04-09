@@ -20,10 +20,10 @@ let createCate = (item) => {
         resolve(true);
     });
 };
-let findIdCate = (idCate) => {
+let findCateById = (idCate) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let dataIdCate = await categoryModel.findIdCate(idCate);
+            let dataIdCate = await categoryModel.findCateById(idCate);
             resolve(dataIdCate);
         } catch (error) {
             reject(error);
@@ -45,7 +45,7 @@ let removeCate = async (idCate) => {
 };
 module.exports = {
     findCate: findCate,
-    findIdCate: findIdCate,
+    findCateById: findCateById,
     createCate: createCate,
     updateCate: updateCate,
     removeCate: removeCate,

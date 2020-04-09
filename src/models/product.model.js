@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 const productSchema = new mongoose.Schema({
     title: { type: String, min: 12, max: 90, trim: true },
-    price: { type: Number, min: 1000, max: 9000000, trim: true },
+    price: { type: Number, trim: true },
     description: { type: String, min: 10, max: 3000, trim: true },
-    amount: { type: Number, min: 1, max: 100, trim: true },
+    amount: { type: Number, trim: true },
     image: String,
     createdAt: { type: Number, default: Date.now },
     updatedAt: { type: Number, default: Date.now },
@@ -22,6 +22,18 @@ productSchema.statics = {
      */
     createProduct(item) {
         return this.create(item);
+    },
+    findProductById(item) {
+        return this.findById(item);
+    },
+    findProductByTitle(item) {
+        return this.findOne({ title: item });
+    },
+    updateProduct(idProduct, item) {
+        return this.findByIdAndUpdate(idProduct, item);
+    },
+    removeProduct(item) {
+        return this.findByIdAndDelete(item);
     },
 };
 productSchema.pre(/^find/, function (next) {
