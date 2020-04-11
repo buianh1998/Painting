@@ -49,5 +49,33 @@ function removeRequestDataProduct() {
         });
     });
 }
+function removeRequestDataAdmin() {
+    $(".btn-delete-admin").bind("click", function () {
+        let adminId = $(this).data("admin");
+        Swal.fire({
+            title: "Bạn có muốn xóa quản trị viên này khỏi danh sách không?",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Đồng Ý!",
+            cancelButtonText: "Hủy Bỏ",
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: "/admin/admin/delete-admin",
+                    type: "delete",
+                    data: { idAdmin: adminId },
+                    success: function (data) {
+                        if (data.success) {
+                            Swal.fire("Xóa thành công!", "Bạn vừa xóa 1 quản trị viên.", "success");
+                            $("#list-admin").find(`tr.data-admin[data-idadmin=${adminId}]`).remove();
+                        }
+                    },
+                });
+            }
+        });
+    });
+}
 removeRequestDataCate();
 removeRequestDataProduct();
+removeRequestDataAdmin();

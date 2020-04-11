@@ -1,0 +1,167 @@
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Thêm Quản Trị Viên Mới</h4>
+            <%if(errors){%> <%errors.forEach(item =>{%>
+            <h4 class="alert alert-danger col-8"><%=item%></h4>
+            <%})%> <%}%> <%if(success){%> <%success.forEach(item =>{%>
+            <h4 class="alert alert-success col-8"><%=item%></h4>
+            <%})%> <%}%>
+            <form class="needs-validation" action="/admin/admin/add-admin" method="POST" enctype="multipart/form-data" novalidate="">
+                <div class="form-row">
+                    <div class="col-md-5 mb-6">
+                        <label for="validationCustom01">Tên Tài Khoản</label>
+                        <input
+                            type="email"
+                            class="form-control"
+                            id="validationCustom01"
+                            name="username"
+                            placeholder="Nhập tên tài khoản"
+                            required=""
+                        />
+                        <div class="invalid-feedback">
+                            Tên tài khoản không được để trống và phải là định dạng email
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-5 mb-6">
+                        <label for="validationCustom02">Mật Khẩu</label>
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="validationCustom02"
+                            name="password"
+                            placeholder="Nhập mật khẩu"
+                            required=""
+                        />
+                        <div class="invalid-feedback">
+                            Mật khẩu không được phép trống
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-5 mb-6">
+                        <label for="validationCustom02">Chức Vụ</label>
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="validationCustom03"
+                            name="position"
+                            placeholder="Nhập chức vụ"
+                            required=""
+                        />
+                        <div class="invalid-feedback">
+                            Chức vụ không được phép trống
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-5 mb-3">
+                        <label for="validationCustom05">Avatar</label>
+                        <input type="file" class="form-control" name="avatar" id="validationCustom05" required="" />
+                        <div class="invalid-feedback">
+                            Làm ơn nhập ảnh.
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-success" type="submit">Thêm Mới</button>
+            </form>
+            <script>
+                // Example starter JavaScript for disabling form submissions if there are invalid fields
+                (function () {
+                    "use strict";
+                    window.addEventListener(
+                        "load",
+                        function () {
+                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                            var forms = document.getElementsByClassName("needs-validation");
+                            // Loop over them and prevent submission
+                            var validation = Array.prototype.filter.call(forms, function (form) {
+                                form.addEventListener(
+                                    "submit",
+                                    function (event) {
+                                        if (form.checkValidity() === false) {
+                                            event.preventDefault();
+                                            event.stopPropagation();
+                                        }
+                                        form.classList.add("was-validated");
+                                    },
+                                    false
+                                );
+                            });
+                        },
+                        false
+                    );
+                })();
+            </script>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Danh sách quản trị viên</h4>
+        <h6 class="card-subtitle"></h6>
+
+        <!-- Add Contact Popup Model -->
+
+        <div class="table-responsive">
+            <table
+                id="demo-foo-addrow"
+                class="table table-bordered m-t-30 table-hover contact-list footable footable-5 footable-paging footable-paging-center breakpoint-xs"
+                data-paging="true"
+                data-paging-size="7"
+            >
+                <thead>
+                    <tr class="footable-header">
+                        <th class="footable-first-visible" style="display: table-cell;">STT</th>
+                        <th style="display: table-cell;">Tên Tài Khoản</th>
+                        <th style="display: table-cell;">Mật Khẩu</th>
+                        <th style="display: table-cell;">Tên QTV</th>
+                        <th style="display: table-cell;">Chức vụ</th>
+                        <th style="display: table-cell;">Avatar</th>
+                        <th class="footable-last-visible" style="display: table-cell;"></th>
+                    </tr>
+                </thead>
+                <tbody id="list-admin">
+                    <%dataAdmin.forEach((admin,index) =>{%>
+                    <tr class="data-admin" data-idadmin="<%= admin._id%>">
+                        <td class="footable-first-visible" style="display: table-cell;"><%= index + 1%></td>
+                        <td class="footable-last-visible" style="display: table-cell;"><%= admin.username%></td>
+                        <%if(admin.password.length > 25){%>
+                        <td style="display: table-cell;"><%= admin.password.substr(0,16)%><span>...</span></td>
+                        <%}else{%>
+                        <td style="display: table-cell;"><%= admin.password%></td>
+                        <%}%>
+                        <td style="display: table-cell;"><%= admin.fullname%></td>
+                        <%if(admin.position == 1){%>
+                        <td style="display: table-cell;">Chủ Cửa Hàng</td>
+                        <%}else if(admin.position == 2){%>
+                        <td style="display: table-cell;">Nhân Viên</td>
+                        <%}else {%>
+                        <td style="display: table-cell;">Chưa Có CV</td>
+                        <%}%>
+                        <td style="display: table-cell;">
+                            <a href="#"><img src="uploads/imagesAdmin/<%= admin.avatar%>" alt="user" width="40" class="img-circle" /> </a>
+                        </td>
+                        <td>
+                            <button
+                                class="btn waves-effect waves-light btn-info"
+                                onclick="window.location.href='/admin/admin/edit-admin/<%= admin._id%>';"
+                            >
+                                <i class="fas fa-pencil-alt"></i>
+                            </button>
+                            <button class="btn btn-success">
+                                <i class="mdi mdi-magnify"></i>
+                            </button>
+                            <button class="btn waves-effect waves-light btn-primary btn-delete-admin" data-admin="<%= admin._id%>">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <%})%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

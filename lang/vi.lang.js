@@ -11,9 +11,16 @@ export const transProductErrors = {
     iamge_product_limit: "Kích thước file phải dưới 2MB",
     title_in_product: "Tên sản phẩm trên đã tồn tại hãy nhập tên sản phẩm khác",
 };
+export const tranAdminErros = {
+    username_in_admin: "Email trên đã tồn tại hãy nhập tên sản phẩm khác",
+    image_admin_incorrect: " File phải là file ảnh jpg hoặc png",
+    iamge_admin_limit: "Kích thước file phải dưới 2MB",
+};
 export const transSuccess = {
     new_cate_success: "Thêm mới loại thành công",
     update_cate_success: "Cập nhật thành công loại sản phẩm",
     new_product_success: "Thêm mới sản phẩm thành công",
     update_product_success: "Cập nhật thành công sản phẩm",
+    new_admin_success: "Thêm mới quản trị viên thành công",
+    update_admin_success: "Cập nhật thành công quản trị viên",
 };

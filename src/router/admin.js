@@ -15,6 +15,11 @@ let routerInit = (app) => {
     router.get("/product/edit-product/:idProduct", product.findProductById);
     router.post("/product/edit-product/:idProduct", product.updateProduct);
     router.delete("/product/remove-product", product.removeProduct);
+    router.get("/admin", admin.getAdmin);
+    router.post("/admin/add-admin", admin.createAdmin);
+    router.get("/admin/edit-admin/:idAdmin", admin.findAdminById);
+    router.post("/admin/edit-admin/:idAdmin", admin.editAdmin);
+    router.delete("/admin/delete-admin", admin.deleteAdmin);
     app.use("/admin", router);
 };
 

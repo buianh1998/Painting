@@ -1,0 +1,123 @@
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Thêm Quản Trị Viên Mới</h4>
+            <%if(errors){%> <%errors.forEach(item =>{%>
+            <h4 class="alert alert-danger col-8"><%=item%></h4>
+            <%})%> <%}%>
+            <form
+                class="needs-validation"
+                action="./admin/admin/edit-admin/<%= dataIdAdmin._id%>"
+                method="POST"
+                enctype="multipart/form-data"
+                novalidate=""
+            >
+                <div class="form-row">
+                    <div class="col-md-5 mb-6">
+                        <label for="validationCustom01">Tài Khoản Quản Trị Viên</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="validationCustom01"
+                            name="fullname"
+                            placeholder="Nhập tên tài khoản"
+                            value="<%= dataIdAdmin.username%>"
+                            disabled
+                        />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-5 mb-6">
+                        <label for="validationCustom01">Tên Quản Trị Viên</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="validationCustom01"
+                            name="fullname"
+                            placeholder="Nhập tên tài khoản"
+                            value="<%= dataIdAdmin.fullname%>"
+                            required=""
+                        />
+                        <div class="invalid-feedback">
+                            Tên quản trị viên không được trống
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-5 mb-6">
+                        <label for="validationCustom02">Mật Khẩu</label>
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="validationCustom02"
+                            name="password"
+                            placeholder="Nhập mật khẩu"
+                            value="<%= dataIdAdmin.password%>"
+                            required=""
+                        />
+                        <div class="invalid-feedback">
+                            Mật khẩu không được phép trống
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-5 mb-6">
+                        <label for="validationCustom02">Chức Vụ</label>
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="validationCustom03"
+                            name="position"
+                            placeholder="Nhập chức vụ"
+                            required=""
+                            value="<%= dataIdAdmin.position%>"
+                        />
+                        <div class="invalid-feedback">
+                            Chức vụ không được phép trống
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-5 mb-3">
+                        <label for="validationCustom05">Avatar</label>
+                        <img src="uploads/imagesAdmin/<%= dataIdAdmin.avatar%>" alt="user" width="40" class="img-circle" />
+                        <input type="hidden" name="avatarOld" id="" value="<%= dataIdAdmin.avatar%>" />
+                        <input type="file" class="form-control" name="avatar" id="validationCustom05" value="<%= dataIdAdmin.avatar%>" />
+                        <div class="invalid-feedback">
+                            Làm ơn nhập ảnh.
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-success" type="submit">Cập Nhật</button>
+            </form>
+            <script>
+                // Example starter JavaScript for disabling form submissions if there are invalid fields
+                (function () {
+                    "use strict";
+                    window.addEventListener(
+                        "load",
+                        function () {
+                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                            var forms = document.getElementsByClassName("needs-validation");
+                            // Loop over them and prevent submission
+                            var validation = Array.prototype.filter.call(forms, function (form) {
+                                form.addEventListener(
+                                    "submit",
+                                    function (event) {
+                                        if (form.checkValidity() === false) {
+                                            event.preventDefault();
+                                            event.stopPropagation();
+                                        }
+                                        form.classList.add("was-validated");
+                                    },
+                                    false
+                                );
+                            });
+                        },
+                        false
+                    );
+                })();
+            </script>
+        </div>
+    </div>
+</div>

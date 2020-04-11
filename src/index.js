@@ -2,6 +2,7 @@ import express from "express";
 import connectDB from "./config/connectDB";
 import configEngine from "./config/viewEngine";
 import routerInit from "./router/admin";
+import authRouterInit from "./router/auth";
 import bodyParser from "body-parser";
 import configSession from "./config/configSession";
 import connectFlash from "connect-flash";
@@ -13,12 +14,13 @@ configSession(app);
 //config view ejs for project
 configEngine(app);
 //config bodyParser for project
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 //connect flash
 app.use(connectFlash());
 //config router for project
 routerInit(app);
+authRouterInit(app);
 //config dotenv for project
 require("dotenv").config({});
 

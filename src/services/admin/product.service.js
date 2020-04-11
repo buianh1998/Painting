@@ -18,14 +18,7 @@ let createProduct = (item) => {
     });
 };
 let updateProduct = (idProduct, item) => {
-    return new Promise(async (resolve, reject) => {
-        let dataProduct = await productModel.findProductByTitle(item.title);
-        if (dataProduct) {
-            return reject(transProductErrors.title_in_product);
-        }
-        await productModel.updateProduct(idProduct, item);
-        resolve(true);
-    });
+    return productModel.updateProduct(idProduct, item);
 };
 let findProductById = (item) => {
     return new Promise(async (resolve, reject) => {
