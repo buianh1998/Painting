@@ -78,6 +78,7 @@
                     <div class="col-md-6 mb-3">
                         <label >Ảnh Sản Phẩm :</label>
                         <img src="uploads/imageproduct/<%= dataIdProduct.image%>" alt="user" width="40" style="margin:0 0px 6px 10px;" class="img-circle" />
+                        <input type="hidden" class="form-control" value="<%=dataIdProduct.image %>" name="imageold" />
                         <input type="file" class="form-control" value="<%=dataIdProduct.image %>" name="image" />
                         <div class="invalid-feedback">
                             Làm ơn nhập ảnh.

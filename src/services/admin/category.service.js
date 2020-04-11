@@ -31,14 +31,7 @@ let findCateById = (idCate) => {
     });
 };
 let updateCate = (idCate, item) => {
-    return new Promise(async (resolve, reject) => {
-        let findByTitle = await categoryModel.findByTitle(item.title);
-        if (findByTitle) {
-            return reject(transErrors.title_in_cate);
-        }
-        await categoryModel.updateCate(idCate, item);
-        resolve(true);
-    });
+    return categoryModel.updateCate(idCate, item);
 };
 let removeCate = async (idCate) => {
     return categoryModel.removeCate(idCate);

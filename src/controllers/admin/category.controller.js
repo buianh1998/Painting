@@ -61,7 +61,6 @@ let createCate = async (req, res) => {
 let updateCate = async (req, res) => {
     let errArr = [];
     let success = [];
-    let idCate = req.params.idcate;
     let validationError = validationResult(req);
     if (!validationError.isEmpty()) {
         // Object.values() lấy tất cả các value của Object bạn đầu và nhóm lại thành 1 cái mảng
@@ -83,9 +82,7 @@ let updateCate = async (req, res) => {
         req.flash("success", success);
         res.redirect("/admin/category");
     } catch (error) {
-        errArr.push(error);
-        req.flash("errors", errArr);
-        return res.redirect(`/admin/category/edit-cate/${idCate}`);
+        res.status(400).send(error);
     }
 };
 let removeCate = async (req, res) => {
