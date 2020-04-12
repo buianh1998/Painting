@@ -6,10 +6,12 @@
             <ul id="sidebarnav">
                 <li class="user-pro">
                     <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"
-                        ><img src="images/users/1.jpg" alt="user-img" class="img-circle" /><span class="hide-menu">Mark Jeckson</span></a
+                        ><img src="uploads/imagesAdmin/<%= user.avatar%>" alt="user-img" class="img-circle" /><span class="hide-menu"
+                            ><%= user.fullname%></span
+                        ></a
                     >
                     <ul aria-expanded="false" class="collapse">
-                        <li>
+                        <!-- <li>
                             <a href="javascript:void(0)"><i class="ti-user"></i> My Profile</a>
                         </li>
                         <li>
@@ -23,46 +25,52 @@
                         </li>
                         <li>
                             <a href="javascript:void(0)"><i class="fa fa-power-off"></i> Logout</a>
-                        </li>
+                        </li> -->
                     </ul>
                 </li>
-                <li class="nav-small-cap">--- PERSONAL</li>
+                <li class="nav-small-cap">DANH SÁCH QUẢN TRỊ</li>
                 <li>
-                    <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"
+                    <a class="has-arrow waves-effect waves-dark" href="/admin" aria-expanded="false"
+                        ><i class="icons-Cart-Quantity"></i
+                        ><span class="hide-menu">TRANG QUẢN TRỊ <span class="badge badge-pill badge-cyan ml-auto"></span></span
+                    ></a>
+                </li>
+                <li>
+                    <a class="has-arrow waves-effect waves-dark" href="/admin/category" aria-expanded="false"
                         ><i class="icon-speedometer"></i
-                        ><span class="hide-menu">Dashboard <span class="badge badge-pill badge-cyan ml-auto">4</span></span></a
-                    >
-                    <ul aria-expanded="false" class="collapse">
+                        ><span class="hide-menu">lOẠI SẢN PHẨM <span class="badge badge-pill badge-cyan ml-auto"></span></span
+                    ></a>
+                    <!-- <ul aria-expanded="false" class="collapse">
                         <li><a href="index.html">Minimal </a></li>
                         <li><a href="index2.html">Analytical</a></li>
                         <li><a href="index3.html">Demographical</a></li>
                         <li><a href="index4.html">Modern</a></li>
-                    </ul>
+                    </ul> -->
                 </li>
                 <li>
-                    <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"
-                        ><i class="ti-layout-grid2"></i><span class="hide-menu">Apps</span></a
+                    <a class="has-arrow waves-effect waves-dark" href="/admin/product" aria-expanded="false"
+                        ><i class="ti-layout-grid2"></i><span class="hide-menu">SẢN PHẨM</span></a
                     >
-                    <ul aria-expanded="false" class="collapse">
+                    <!-- <ul aria-expanded="false" class="collapse">
                         <li><a href="app-calendar.html">Calendar</a></li>
                         <li><a href="app-chat.html">Chat app</a></li>
                         <li><a href="app-ticket.html">Support Ticket</a></li>
                         <li><a href="app-contact.html">Contact / Employee</a></li>
                         <li><a href="app-contact2.html">Contact Grid</a></li>
                         <li><a href="app-contact-detail.html">Contact Detail</a></li>
-                    </ul>
+                    </ul> -->
                 </li>
                 <li>
-                    <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"
-                        ><i class="ti-email"></i><span class="hide-menu">Inbox</span></a
+                    <a class="has-arrow waves-effect waves-dark" href="/admin/admin" aria-expanded="false"
+                        ><i class="ti-user"></i><span class="hide-menu">QUẢN TRỊ VIÊN</span></a
                     >
-                    <ul aria-expanded="false" class="collapse">
+                    <!-- <ul aria-expanded="false" class="collapse">
                         <li><a href="app-email.html">Mailbox</a></li>
                         <li><a href="app-email-detail.html">Mailbox Detail</a></li>
                         <li><a href="app-compose.html">Compose Mail</a></li>
-                    </ul>
+                    </ul> -->
                 </li>
-                <li>
+                <!-- <li>
                     <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"
                         ><i class="ti-palette"></i
                         ><span class="hide-menu"
@@ -287,7 +295,7 @@
                     <a class="waves-effect waves-dark" href="pages-faq.html" aria-expanded="false"
                         ><i class="far fa-circle text-info"></i><span class="hide-menu">FAQs</span></a
                     >
-                </li>
+                </li> -->
             </ul>
         </nav>
         <!-- End Sidebar navigation -->
