@@ -6,6 +6,7 @@ import authRouterInit from "./router/auth";
 import bodyParser from "body-parser";
 import configSession from "./config/configSession";
 import connectFlash from "connect-flash";
+import passport from "passport";
 var app = express();
 //connect Mongodb
 connectDB();
@@ -18,6 +19,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 //connect flash
 app.use(connectFlash());
+// config passport
+app.use(passport.initialize());
+app.use(passport.session());
 //config router for project
 routerInit(app);
 authRouterInit(app);

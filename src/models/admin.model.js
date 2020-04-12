@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import bcryptjs from "bcryptjs";
 const adminSchema = new mongoose.Schema({
     username: { type: String, trim: true, required: "" },
     password: String,
@@ -27,6 +28,11 @@ adminSchema.statics = {
     },
     deleteAdmin(idAdmin) {
         return this.findByIdAndDelete(idAdmin);
+    },
+};
+adminSchema.methods = {
+    checkPassword(passwordlc) {
+        return bcryptjs.compareSync(passwordlc, this.password);
     },
 };
 module.exports = mongoose.model("admin", adminSchema);

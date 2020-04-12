@@ -16,6 +16,11 @@ export const tranAdminErros = {
     image_admin_incorrect: " File phải là file ảnh jpg hoặc png",
     iamge_admin_limit: "Kích thước file phải dưới 2MB",
 };
+export const transLoginErrors = {
+    email_login_false: "Tài khoản trên không chính xác",
+    password_login_false: "Mật khẩu không chính xác",
+    server_error: "Lỗi từ server hãy liên hệ quản trị viên",
+};
 export const transSuccess = {
     new_cate_success: "Thêm mới loại thành công",
     update_cate_success: "Cập nhật thành công loại sản phẩm",
@@ -23,4 +28,5 @@ export const transSuccess = {
     update_product_success: "Cập nhật thành công sản phẩm",
     new_admin_success: "Thêm mới quản trị viên thành công",
     update_admin_success: "Cập nhật thành công quản trị viên",
+    logout_admin_success: "Đăng xuất tài khoản thành công",
 };
