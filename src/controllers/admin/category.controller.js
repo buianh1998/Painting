@@ -1,4 +1,4 @@
-import { category } from "./../../services/admin/index.services";
+import { category } from "./../../services/index.services";
 import { validationResult } from "express-validator";
 import { transErrors, transSuccess } from "./../../../lang/vi.lang";
 let findCate = async (req, res) => {

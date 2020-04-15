@@ -1,4 +1,4 @@
-import { product, category } from "./../../services/admin/index.services";
+import { product, category } from "./../../services/index.services";
 import multer from "multer";
 import { validationResult } from "express-validator";
 import { uploadFile } from "./../../config/configUploadImage";

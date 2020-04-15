@@ -10,8 +10,14 @@ const productSchema = new mongoose.Schema({
     idCate: { type: mongoose.Schema.Types.ObjectId, ref: "categori" },
 });
 productSchema.statics = {
-    getProduct() {
+    getProduct(start, limit) {
+        return this.find().sort({ createdAt: 1 }).skip(start).limit(limit).exec();
+    },
+    getNewProductLimited() {
         return this.find().sort({ createdAt: -1 }).exec();
+    },
+    getProductOnCate(item) {
+        return this.find({ idCate: item }).sort({ createdAt: -1 }).exec();
     },
     findByTitle(item) {
         return this.findOne({ title: item });

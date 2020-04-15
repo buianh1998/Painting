@@ -1,4 +1,4 @@
-import { admin } from "./../../services/admin/index.services";
+import { admin } from "./../../services/index.services";
 import multer from "multer";
 import { uploadFile } from "./../../config/configUploadImage";
 import { tranAdminErros, transSuccess } from "./../../../lang/vi.lang";

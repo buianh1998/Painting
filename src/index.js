@@ -3,6 +3,7 @@ import connectDB from "./config/connectDB";
 import configEngine from "./config/viewEngine";
 import routerInit from "./router/admin";
 import authRouterInit from "./router/auth";
+import clientRouteInit from "./router/client";
 import bodyParser from "body-parser";
 import configSession from "./config/configSession";
 import connectFlash from "connect-flash";
@@ -25,6 +26,7 @@ app.use(passport.session());
 //config router for project
 routerInit(app);
 authRouterInit(app);
+clientRouteInit(app);
 //config dotenv for project
 require("dotenv").config({});
 

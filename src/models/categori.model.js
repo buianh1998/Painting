@@ -12,6 +12,9 @@ categoriSchema.statics = {
     findCate() {
         return this.find().sort({ createdAt: -1 }).exec();
     },
+    getNewCateLimited() {
+        return this.find().limit(5).sort({ createdAt: -1 }).exec();
+    },
     /**
      * find by id Cate
      * @param {string} idCate
