@@ -9,20 +9,6 @@
                     <option value="3">Price (High to Low)</option>
                 </select>
             </div>
-            <div class="ps-pagination">
-                <ul class="pagination">
-                    <li>
-                        <a href="#"><i class="fa fa-angle-left"></i></a>
-                    </li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">...</a></li>
-                    <li>
-                        <a href="#"><i class="fa fa-angle-right"></i></a>
-                    </li>
-                </ul>
-            </div>
         </div>
         <div class="ps-product__columns">
             <!-- <div class="ps-product__column">
@@ -63,7 +49,8 @@
             <div class="ps-product__column">
                 <div class="ps-shoe mb-30">
                     <div class="ps-shoe__thumbnail">
-                        <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a
+                        <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a>
+                        <a class="ps-shoe__favorite add-one-item-to-cart" data-uid="<%= item._id%>"><i class="ps-icon-shopping-cart"></i></a
                         ><img src="uploads/imageproduct/<%= item.image%>" alt="" /><a
                             class="ps-shoe__overlay"
                             href="/product/detail-product/<%= item._id%>"
@@ -88,7 +75,9 @@
                         <div class="ps-shoe__detail">
                             <a class="ps-shoe__name" href="#"><%= item.title%></a>
                             <p class="ps-shoe__categories"><a href="#"><%= item.idCate.title%></a></p>
-                            <span class="ps-shoe__price"> <%= item.price%></span>
+                            <%item.size.forEach((price,index) =>{%> <%if(index == 0){%>
+                            <span class="ps-shoe__price"> <%= price.price%><!--<del>£220</del>--></span>
+                            <%}%> <%})%>
                         </div>
                     </div>
                 </div>
@@ -98,16 +87,28 @@
         <div class="ps-product-action">
             <div class="ps-pagination">
                 <ul class="pagination">
+                    <%if(currentPage == 1){%>
                     <li>
-                        <a href="#"><i class="fa fa-angle-left"></i></a>
+                        <a><i class="fa fa-angle-left"></i></a>
                     </li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">...</a></li>
+                    <%}else{%>
                     <li>
-                        <a href="#"><i class="fa fa-angle-right"></i></a>
+                        <a href="/products?page=<%= currentPage -1%>"><i class="fa fa-angle-left"></i></a>
                     </li>
+                    <%}%> <% var i = Number(currentPage) > 4? Number(currentPage) - 3 : 1%> <% for(;i <= (Number(currentPage) + 2) && i <=
+                    pages; i++){%> <%if(i == Number(currentPage)){%>
+                    <li class="active"><a><%= i%></a></li>
+                    <%}else{%>
+                    <li><a href="/products?page=<%= i%>"><%= i%></a></li>
+                    <%}%> <%}%> <%if(currentPage == pages){%>
+                    <li>
+                        <a href="#" class="disabled display-none"><i class="fa fa-angle-right"></i></a>
+                    </li>
+                    <%}else{%>
+                    <li>
+                        <a href="/products?page=<%= Number(currentPage) + 1%>"><i class="fa fa-angle-right"></i></a>
+                    </li>
+                    <%}%>
                 </ul>
             </div>
         </div>
@@ -120,7 +121,7 @@
             <div class="ps-widget__content">
                 <ul class="ps-list--checked">
                     <% getCate.forEach(item =>{%>
-                    <li class="current"><a href="/product/product-cate/<%= item._id%>"><%= item.title%></a></li>
+                    <li class=""><a href="/product/product-cate/<%= item._id%>"><%= item.title%></a></li>
                     <%})%>
                     <!-- <li><a href="product-listing.html">Running(76)</a></li>
                         <li><a href="product-listing.html">Baseball(21)</a></li>

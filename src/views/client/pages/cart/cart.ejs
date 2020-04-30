@@ -1,0 +1,85 @@
+<div class="ps-content pt-80 pb-80">
+    <div class="ps-container">
+        <div class="ps-cart-listing">
+            <table class="table ps-cart__table">
+                <thead>
+                    <tr>
+                        <th>Tất Cả Sản Phẩm</th>
+                        <th>Đơn Giá</th>
+                        <th>Số Lượng</th>
+                        <th>Tổng Tiền</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="list-items-cart">
+                    <%if(product){%> <% product.forEach(item =>{%>
+                    <tr id="data-item-cart-<%= item.item._id%>">
+                        <td>
+                            <a class="ps-product__preview" href="/product/detail-product/<%= item.item._id%>"
+                                ><img
+                                    class="mr-15"
+                                    src="uploads/imageproduct/<%= item.item.image%>"
+                                    style="width: 100px; height: 100px;"
+                                    alt=""
+                                />
+                                <%= item.item.title%></a
+                            >
+                        </td>
+                        <td id="price-item_<%= item.item._id%>"><%= item.price / item.qty%></td>
+                        <td>
+                            <div class="form-group--number" data-uid="<%= item.item._id%>">
+                                <button
+                                    class="minus delete-one-item-on-cart"
+                                    data-uid="<%= item.item._id%>"
+                                    data-price="<%= item.price / item.qty%>"
+                                >
+                                    <span>-</span>
+                                </button>
+                                <input
+                                    class="form-control val-input"
+                                    id="totalQty_<%= item.item._id%>"
+                                    type="number"
+                                    value="<%= item.qty%>"
+                                    data-price="<%= item.price / item.qty%>"
+                                />
+                                <button
+                                    class="plus add-one-item-on-cart"
+                                    data-uid="<%= item.item._id%>"
+                                    data-price="<%= item.price / item.qty%>"
+                                >
+                                    <span>+</span>
+                                </button>
+                            </div>
+                        </td>
+                        <td id="price-item-cart_<%= item.item._id%>"><%= item.price%></td>
+                        <td>
+                            <div class="ps-remove delete-item-to-cart" data-uid="<%= item.item._id%>"></div>
+                        </td>
+                    </tr>
+                    <%})%> <%}else{%>
+                    <td style="text-align: center;">
+                        <h3>Giỏ Hàng Trống</h3>
+                    </td>
+                    <%}%>
+                </tbody>
+            </table>
+            <div class="ps-cart__actions">
+                <div class="ps-cart__promotion">
+                    <div class="form-group">
+                        <button class="ps-btn ps-btn--gray" onclick="window.location='/'">Tiếp Tục Mua Sắm</button>
+                    </div>
+                </div>
+                <%if(product){%>
+                <div class="ps-cart__total" id="total-price-and-qty-of-cart">
+                    <div class="form-group">
+                        <button class="ps-btn ps-btn--gray" onclick="window.location='/delete-all-cart'">Xóa Giỏ Hàng</button>
+                    </div>
+                    <h3>Tổng Số Lượng:<span id="total-qty"> <%= totalQty%></span></h3>
+                    <h3>Tổng Tiền Đơn Hàng: <span id="total-price"> <%= totalPrice%></span></h3>
+                    <a class="ps-btn" href="/checkout">Tiến Hành Thanh Toán<i class="ps-icon-next"></i></a>
+                </div>
+                <%}%>
+            </div>
+        </div>
+    </div>
+</div>

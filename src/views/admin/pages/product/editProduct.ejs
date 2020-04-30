@@ -30,22 +30,7 @@
                             Tên sản phẩm không được để trống
                         </div>
                     </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="validationCustom02">Giá</label>
-                        <input
-                            type="number"
-                            class="form-control"
-                            id="validationCustom02"
-                            name="price"
-                            placeholder="Nhập giá sản phẩm"
-                            value="<%= dataIdProduct.price%>"
-                            required=""
-                        />
-                        <div class="invalid-feedback">
-                            Giá sản phẩm không được trống
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-5 mb-3">
                         <label for="validationCustomUsername">Số Lượng Sản Phẩm</label>
                         <div class="input-group">
                             <input
@@ -63,6 +48,50 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-3 mb-3">
+                    <button type="button" id="btn-edit-size-and-price" class="btn btn-info">Thêm Kích Thước Và Giá</button>
+                </div>
+                    <div class="data-product-id-input" >
+                        <%dataIdProduct.size.forEach((dataSize,index) =>{%>
+                        <div class="form-row edit-input-for-product" data-uid="<%= index%>" >
+                            <div class="col-md-4 mb-3">
+                                <label for="validationCustom06">Kích Thước Bộ</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="validationCustom06"
+                                    name="size<%= index%>"
+                                    placeholder="Nhập kích thước"
+                                    required=""
+                                    value="<%= dataSize.size%>"
+                                />
+                                <div class="invalid-feedback">
+                                    Kích thước bộ không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="validationCustom02">Giá</label>
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="validationCustom02"
+                                    name="price<%= index%>"
+                                    placeholder="Nhập giá sản phẩm"
+                                    required=""
+                                    value="<%= dataSize.price%>"
+                                />
+                                <div class="invalid-feedback">
+                                    Giá sản phẩm không được trống
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3" style="margin-top: 30px;">
+                                <button type="button" class="btn btn-danger btn-delete-size-and-price">Xóa Kích Thước Và Giá</button>
+                            </div>
+                        </div>
+                        <%}) %>
+                        <div class="append-data-input-after" id="data-edit-input"></div>
+                    </div>
+
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="validationCustom04">Loại Sản Phẩm</label>

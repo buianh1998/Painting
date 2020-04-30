@@ -15,6 +15,7 @@ function removeRequestDataCate() {
                     data: { idcate: cateId },
                     success: function (data) {
                         if (data.success) {
+                            Swal.fire("Xóa thành công!", "Bạn vừa xóa 1 loại sản phẩm.", "success");
                             $("#list-category").find(`tr.data-category[data-idcate=${cateId}]`).hide();
                         }
                     },
@@ -41,6 +42,8 @@ function removeRequestDataProduct() {
                     data: { idProduct: productId },
                     success: function (data) {
                         if (data.success) {
+                            Swal.fire("Xóa thành công!", "Bạn vừa xóa 1 sản phẩm.", "success");
+
                             $("#list-product").find(`tr.data-product[data-idproduct=${productId}]`).hide();
                         }
                     },

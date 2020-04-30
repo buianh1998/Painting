@@ -1,11 +1,22 @@
 import express from "express";
 let router = express.Router();
-import { home } from "./../controllers/home/index.controller";
+import { home, cart } from "./../controllers/home/index.controller";
 let clientRouteInit = (app) => {
     router.get("/", home.getHomePage);
     router.get("/products", home.getProductPage);
     router.get("/product/detail-product/:idproduct", home.getDetailProduct);
     router.get("/product/product-cate/:idcate", home.getProductOnCate);
-    app.use("/", router);
+    router.get("/products/search", home.searchDataProduct);
+    router.get("/add-to-cart/:id", cart.addToCart);
+    router.get("/shopping-cart", cart.shopppingCart);
+    router.get("/delete-all-cart", cart.deleteAllCart);
+    router.get("/delete-item-cart/:idproduct", cart.deleteItemOnCart);
+    router.post("/add-items-cart/:id", cart.addItemsToCart);
+    router.put("/add-one-item/", cart.addOneItem);
+    router.put("/delete-one-item", cart.deleteOneItem);
+    router.put("/change-data-input-cart", cart.changeDataInputCart);
+    router.get("/checkout", cart.getCheckout);
+    router.post("/checkout", cart.postCheckout);
+    app.use("/", cart.checkCart, router);
 };
 module.exports = clientRouteInit;

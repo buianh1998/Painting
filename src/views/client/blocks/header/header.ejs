@@ -50,12 +50,7 @@
             <div class="navigation__column center">
                 <ul class="main-menu menu">
                     <li class="menu-item menu-item-has-children dropdown">
-                        <a href="index.html">Home</a>
-                        <ul class="sub-menu">
-                            <li class="menu-item"><a href="index.html">Homepage #1</a></li>
-                            <li class="menu-item"><a href="#">Homepage #2</a></li>
-                            <li class="menu-item"><a href="#">Homepage #3</a></li>
-                        </ul>
+                        <a href="/">Home</a>
                     </li>
                     <li class="menu-item menu-item-has-children has-mega-menu">
                         <a href="#">Men</a>
@@ -145,65 +140,76 @@
                 </ul>
             </div>
             <div class="navigation__column right">
-                <form class="ps-search--header" action="do_action" method="post">
-                    <input class="form-control" type="text" placeholder="Search Product…" />
-                    <button><i class="ps-icon-search"></i></button>
+                <form class="ps-search--header" action="/products/search" method="GET">
+                    <input class="form-control" name="search" type="text" placeholder="tìm kiếm sản phẩm" />
+                    <button type="submit"><i class="ps-icon-search"></i></button>
                 </form>
                 <div class="ps-cart">
-                    <a class="ps-cart__toggle" href="#"
-                        ><span><i>20</i></span
+                    <a class="ps-cart__toggle" href="javascript:void(0)"
+                        ><span>
+                            <% if(!session.cart){%>
+                            <i id="total-qty-cart-on-header">0</i>
+                            <%}else{%>
+                            <i id="total-qty-cart-on-header"><%= session.cart.numItems%></i>
+                            <%}%> </span
                         ><i class="ps-icon-shopping-cart"></i
                     ></a>
+                    <%if( typeof(cartProduct) !== "undefined" ){%>
                     <div class="ps-cart__listing">
-                        <div class="ps-cart__content">
+                        <div class="ps-cart__content" id="list-cart-product-on-heder">
+                            <%cartProduct.forEach((item, index) =>{%> <%if(index < 3){%>
                             <div class="ps-cart-item">
-                                <a class="ps-cart-item__close" href="#"></a>
+                                <a class="ps-cart-item__close" href="/delete-item-cart/<%= item.item._id%>"></a>
                                 <div class="ps-cart-item__thumbnail">
-                                    <a href="product-detail.html"></a><img src="images/cart-preview/1.jpg" alt="" />
+                                    <a href="javascript:void(0)"></a><img src="uploads/imageproduct/<%= item.item.image%>" alt="" />
                                 </div>
-                                <div class="ps-cart-item__content">
-                                    <a class="ps-cart-item__title" href="product-detail.html">Amazin’ Glazin’</a>
+                                <div class="ps-cart-item__content_<%= item.item._id%>">
+                                    <a class="ps-cart-item__title" href="javascript:void(0)"><%= item.item.title%></a>
                                     <p>
-                                        <span>Quantity:<i>12</i></span
-                                        ><span>Total:<i>£176</i></span>
+                                        <span>Số lượng:<i id="totel-qty-item"><%=item.qty%></i></span
+                                        ><br /><span>Tổng tiền:<i id="totel-price-item"><%=item.price%>đ</i></span>
                                     </p>
                                 </div>
                             </div>
-                            <div class="ps-cart-item">
-                                <a class="ps-cart-item__close" href="#"></a>
-                                <div class="ps-cart-item__thumbnail">
-                                    <a href="product-detail.html"></a><img src="images/cart-preview/2.jpg" alt="" />
-                                </div>
-                                <div class="ps-cart-item__content">
-                                    <a class="ps-cart-item__title" href="product-detail.html">The Crusty Croissant</a>
-                                    <p>
-                                        <span>Quantity:<i>12</i></span
-                                        ><span>Total:<i>£176</i></span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="ps-cart-item">
-                                <a class="ps-cart-item__close" href="#"></a>
-                                <div class="ps-cart-item__thumbnail">
-                                    <a href="product-detail.html"></a><img src="images/cart-preview/3.jpg" alt="" />
-                                </div>
-                                <div class="ps-cart-item__content">
-                                    <a class="ps-cart-item__title" href="product-detail.html">The Rolling Pin</a>
-                                    <p>
-                                        <span>Quantity:<i>12</i></span
-                                        ><span>Total:<i>£176</i></span>
-                                    </p>
-                                </div>
-                            </div>
+                            <%}%> <%})%> <% if(session.cart.numItems > 3){%>
+                            <h6 class="numItems-bigger-three">
+                                ....
+                            </h6>
+                            <h6 class="numItems-bigger-threes">
+                                ....
+                            </h6>
+                            <%}%>
                         </div>
-                        <div class="ps-cart__total">
-                            <p>Number of items:<span>36</span></p>
-                            <p>Item Total:<span>£528.00</span></p>
+                        <div class="ps-cart__total" id="list-cart-on-header">
+                            <% if(session.cart){%>
+                            <p>Số Lượng Đơn Hàng:<span id="qty-total-on-header"><%= session.cart.totalQty%></span></p>
+                            <p>Tổng Giá Tiền:<span id="price-total-on-header"><%= session.cart.totalPrice%></span></p>
+                            <%}else{%>
+                            <p>Số Lượng Đơn Hàng:<span>0</span></p>
+                            <p>Tổng Giá Tiền:<span>0</span></p>
+                            <%}%>
                         </div>
                         <div class="ps-cart__footer">
-                            <a class="ps-btn" href="cart.html">Check out<i class="ps-icon-arrow-left"></i></a>
+                            <a class="ps-btn" href="/shopping-cart">Xem Giỏ Hàng<i class="ps-icon-arrow-left"></i></a>
                         </div>
                     </div>
+                    <%}else{%>
+                    <div class="ps-cart__listing show-hide-cart">
+                        <div class="ps-cart__content" id="list-cart-product-on-heder"></div>
+                        <div class="ps-cart__total" id="list-cart-on-header">
+                            <% if(session.cart){%>
+                            <p>Số Lượng Đơn Hàng:<span id="qty-total-on-header"><%= session.cart.totalQty%></span></p>
+                            <p>Tổng Giá Tiền:<span id="price-total-on-header"><%= session.cart.totalPrice%></span></p>
+                            <%}else{%>
+                            <p>Số Lượng Đơn Hàng:<span id="qty-total-on-header">0</span></p>
+                            <p>Tổng Giá Tiền:<span id="price-total-on-header">0</span></p>
+                            <%}%>
+                        </div>
+                        <div class="ps-cart__footer">
+                            <a class="ps-btn" href="/shopping-cart">Xem Giỏ Hàng<i class="ps-icon-arrow-left"></i></a>
+                        </div>
+                    </div>
+                    <%}%>
                 </div>
                 <div class="menu-toggle"><span></span></div>
             </div>
@@ -228,13 +234,16 @@
         data-owl-mousedrag="on"
     >
         <p class="ps-service">
-            <i class="ps-icon-delivery"></i><strong>Free delivery</strong>: Get free standard delivery on every order with Sky Store
+            <i class="ps-icon-delivery"></i><strong>Giao Hàng Toàn Quốc</strong>: chỉ cần bạn để lại số điện thoại và địa chỉ tranh Hà Nội
+            sẽ giao hàng.
         </p>
         <p class="ps-service">
-            <i class="ps-icon-delivery"></i><strong>Free delivery</strong>: Get free standard delivery on every order with Sky Store
+            <i class="ps-icon-delivery"></i><strong>Lắp Đặt Miễn Phí Nội Thành</strong>: Nếu bạn ở Hà Nội, chúng tôi cam kết sẽ lắp đặt miễn
+            phí.
         </p>
         <p class="ps-service">
-            <i class="ps-icon-delivery"></i><strong>Free delivery</strong>: Get free standard delivery on every order with Sky Store
+            <i class="ps-icon-delivery"></i><strong>Chất Lượng Hàng Đầu</strong>: Tranh Hà Nội cam kết tất cả các sản phẩm đều có chất lượng
+            tốt.
         </p>
     </div>
 </div>

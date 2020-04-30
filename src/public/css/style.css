@@ -3401,6 +3401,9 @@ button.ps-btn--gray:before {
 .setting.ac_masonry-grid .grid-item.high .grid-item__inner {
     padding-top: 120%;
 }
+.grid-item .grid-item__content-wrapper {
+    height: 240px !important;
+}
 .setting .grid-item .grid-item__content-wrapper {
     margin: 5px;
     top: 5px;
@@ -3411,6 +3414,11 @@ button.ps-btn--gray:before {
 .setting .grid-item,
 .setting .grid-sizer {
     width: 100%;
+}
+@media (min-width: 320px) {
+    .grid-item .grid-item__content-wrapper {
+        height: 420px !important;
+    }
 }
 @media (min-width: 768px) {
     .setting .grid-item,
@@ -3423,6 +3431,9 @@ button.ps-btn--gray:before {
     }
     .setting .grid-item.extra-large {
         width: 100%;
+    }
+    .grid-item .grid-item__content-wrapper {
+        height: 390px !important;
     }
 }
 @media (min-width: 992px) {
@@ -3449,6 +3460,9 @@ button.ps-btn--gray:before {
     }
     .setting .grid-item.extra-large {
         width: 100%;
+    }
+    .grid-item .grid-item__content-wrapper {
+        height: 320px !important;
     }
 }
 
@@ -4321,7 +4335,7 @@ button.ps-btn--gray:before {
     border: 8px solid #2ac37d;
     border-bottom-color: #219962;
     border-radius: 50%;
-    animation: animLoader 0.4s linear infinite forwards;
+    animation: animLoader 0.2s linear infinite forwards;
 }
 
 .ps-loading.loaded:before,
@@ -6634,7 +6648,8 @@ button.ps-btn--gray:before {
 .ps-product__columns .ps-product__column {
     float: left;
     width: 20%;
-    padding: 0 15px;
+    min-height: 330px !important;
+    padding: 0px 15px;
 }
 @media (max-width: 1600px) {
     .ps-product__columns .ps-product__column {
@@ -6643,17 +6658,19 @@ button.ps-btn--gray:before {
 }
 @media (max-width: 1399px) {
     .ps-product__columns .ps-product__column {
-        width: 33.333333333%;
+        width: 25%;
     }
 }
-@media (max-width: 767px) {
+@media (max-width: 769px) {
     .ps-product__columns .ps-product__column {
+        min-height: 440px !important;
         width: 50%;
     }
 }
 @media (max-width: 569px) {
     .ps-product__columns .ps-product__column {
         width: 100%;
+        min-height: 330px !important;
     }
 }
 
@@ -8210,5 +8227,20 @@ html .bg--parallax {
 .padding-item {
     padding-bottom: 200px !important;
 }
-
+.display-none {
+    display: none !important;
+}
+.show-hide-cart {
+    display: none;
+}
+.numItems-bigger-three {
+    display: none;
+    text-align: center;
+    color: aliceblue;
+}
+.numItems-bigger-threes {
+    display: block;
+    text-align: center;
+    color: aliceblue;
+}
 /*# sourceMappingURL=style.css.map */

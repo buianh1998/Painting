@@ -2,6 +2,7 @@ import { admin } from "./../../services/index.services";
 import multer from "multer";
 import { uploadFile } from "./../../config/configUploadImage";
 import { tranAdminErros, transSuccess } from "./../../../lang/vi.lang";
+import fsExtra from "fs-extra";
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, uploadFile.avatar_directory);
@@ -92,12 +93,18 @@ let editAdmin = (req, res) => {
             req.flash("errors", errArr);
             return res.redirect(`/admin/admin/edit-admin/${idAdmin}`);
         }
+        let dataIdAdmin = await admin.findAdminById(idAdmin);
+        let avatarUpdate = req.body.avatarOld;
+        if (typeof req.file !== "undefined") {
+            avatarUpdate = req.file.filename;
+            await fsExtra.remove(`${uploadFile.avatar_directory}/${dataIdAdmin.avatar}`);
+        }
         let { password, position, fullname } = req.body;
         let item = {
             password,
             position,
             fullname,
-            avatar: typeof req.file !== "undefined" ? req.file.filename : req.body.avatarOld,
+            avatar: avatarUpdate,
         };
         try {
             await admin.editAdmin(idAdmin, item);
@@ -119,7 +126,7 @@ let findIdAdminById = async (req, res) => {
         errors: req.flash("errors"),
     });
 };
-let editIdAdmin = (req, res) => {
+let editIdAdmin = async (req, res) => {
     let errArr = [];
     let { idAdmin } = req.params;
     upload(req, res, async (errUpload) => {
@@ -133,12 +140,18 @@ let editIdAdmin = (req, res) => {
             req.flash("errors", errArr);
             return res.redirect(`/admin/edit-id-admin/${idAdmin}`);
         }
+        let dataIdAdmin = await admin.findAdminById(idAdmin);
+        let avatarUpdate = req.body.avatarOld;
+        if (typeof req.file !== "undefined") {
+            avatarUpdate = req.file.filename;
+            await fsExtra.remove(`${uploadFile.avatar_directory}/${dataIdAdmin.avatar}`);
+        }
         let { password, position, fullname } = req.body;
         let item = {
             password,
             position,
             fullname,
-            avatar: typeof req.file !== "undefined" ? req.file.filename : req.body.avatarOld,
+            avatar: avatarUpdate,
         };
         try {
             await admin.editAdmin(idAdmin, item);
@@ -153,6 +166,8 @@ let deleteAdmin = async (req, res) => {
     try {
         let idAdmin = req.body.idAdmin;
         let dataAdminDL = await admin.deleteAdmin(idAdmin);
+        await fsExtra.remove(`${uploadFile.avatar_directory}/${dataAdminDL.avatar}`);
+
         return res.status(200).send({ success: !!dataAdminDL });
     } catch (error) {
         return res.status(500).send(error);

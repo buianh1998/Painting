@@ -12,7 +12,7 @@ let routerInit = (app) => {
     router.post("/category/add-category", adminValid.cateValidate, category.createCate);
     router.delete("/category/remove-cate", category.removeCate);
     router.get("/product", product.getProduct);
-    router.post("/product/add-product", adminValid.productValidate, product.createProduct);
+    router.post("/product/add-product", product.createProduct);
     router.get("/product/edit-product/:idProduct", product.findProductById);
     router.post("/product/edit-product/:idProduct", product.updateProduct);
     router.delete("/product/remove-product", product.removeProduct);

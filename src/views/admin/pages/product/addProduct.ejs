@@ -23,21 +23,8 @@
                             Tên sản phẩm không được để trống
                         </div>
                     </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="validationCustom02">Giá</label>
-                        <input
-                            type="number"
-                            class="form-control"
-                            id="validationCustom02"
-                            name="price"
-                            placeholder="Nhập giá sản phẩm"
-                            required=""
-                        />
-                        <div class="invalid-feedback">
-                            Giá sản phẩm không được trống
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
+
+                    <div class="col-md-5 mb-3">
                         <label for="validationCustomUsername">Số Lượng Sản Phẩm</label>
                         <div class="input-group">
                             <input
@@ -52,6 +39,39 @@
                                 Số lượng không được trống.
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="form-row add-input-for-product" id="data-input">
+                    <div class="col-md-4 mb-3">
+                        <label for="validationCustom06">Kích Thước Bộ</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="validationCustom06"
+                            name="size0"
+                            placeholder="Nhập kích thước"
+                            required=""
+                        />
+                        <div class="invalid-feedback">
+                            Kích thước bộ không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="validationCustom02">Giá</label>
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="validationCustom02"
+                            name="price0"
+                            placeholder="Nhập giá sản phẩm"
+                            required=""
+                        />
+                        <div class="invalid-feedback">
+                            Giá sản phẩm không được trống
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3" style="margin-top: 30px;">
+                        <button type="button" id="btn-add-size-and-price" class="btn btn-info">Thêm Kích Thước Và Giá</button>
                     </div>
                 </div>
                 <div class="form-row">
@@ -144,8 +164,9 @@
                         <th class="footable-first-visible" style="display: table-cell;">STT</th>
                         <th style="display: table-cell;">Tên Sản Phẩm</th>
                         <th style="display: table-cell;">Giá</th>
+                        <th style="display: table-cell;">Size</th>
                         <th style="display: table-cell;">Mô Tả</th>
-                        <th style="display: table-cell;">Số Lượng</th>
+                        <th style="display: table-cell;">SLượng</th>
                         <th style="display: table-cell;">Thuộc Loại</th>
                         <th style="display: table-cell;">Hình Ảnh</th>
                         <th class="footable-last-visible" style="display: table-cell;"></th>
@@ -155,18 +176,24 @@
                     <%dataProduct.forEach((product,index) =>{%>
                     <tr class="data-product" data-idProduct="<%= product._id%>">
                         <td class="footable-first-visible" style="display: table-cell;"><%= index + 1%></td>
+                        <% if(product.title.length > 15){%>
+                        <td class="footable-last-visible" style="display: table-cell;"><%= product.title.substr(0,12)%><span>...</span></td>
+                        <%}else{%>
                         <td class="footable-last-visible" style="display: table-cell;"><%= product.title%></td>
-
-                        <td style="display: table-cell;"><%= product.price%></td>
-                        <%if(product.description.length > 20){%>
-                        <td style="display: table-cell;"><%= product.description.substr(0,18)%><span>...</span></td>
+                        <%}%> <% product.size.forEach((dataSize,index) =>{%> <%if(index == 0){%>
+                        <td><%= dataSize.price%></td>
+                        <td><%= dataSize.size%></td>
+                        <%}%> <%})%> <%if(product.description.length > 15){%>
+                        <td style="display: table-cell;"><%= product.description.substr(0,12)%><span>...</span></td>
                         <%}else{%>
                         <td style="display: table-cell;"><%= product.description%>></td>
                         <%}%>
                         <td style="display: table-cell;"><%= product.amount%></td>
                         <td style="display: table-cell;"><%= product.idCate.title%></td>
                         <td style="display: table-cell;">
-                            <a href="#"><img src="uploads/imageproduct/<%= product.image%>" alt="user" width="40" class="img-circle" /> </a>
+                            <a style="text-align: center; margin-left: 15px;" href="javascript:void(0)"
+                                ><img src="uploads/imageproduct/<%= product.image%>" alt="user" width="40" class="img-circle" />
+                            </a>
                         </td>
                         <td>
                             <button

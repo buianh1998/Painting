@@ -3,13 +3,11 @@ import { transProductErrors, transSuccess } from "./../../lang/vi.lang";
 const LIMIT_PRODUCT_PAGE = 12;
 let getProduct = (page) => {
     return new Promise(async (resolve, reject) => {
-        console.log(page);
-
         let start = (page - 1) * LIMIT_PRODUCT_PAGE;
-        console.log(start);
-
         let getProduct = await productModel.getProduct(start, LIMIT_PRODUCT_PAGE);
-        resolve(getProduct);
+        let countDataProduct = await productModel.countDataProduct();
+        let PagesProduct = Math.ceil(countDataProduct / LIMIT_PRODUCT_PAGE);
+        resolve({ getProduct, PagesProduct });
     });
 };
 let getNewProductLimited = () => {
@@ -50,6 +48,15 @@ let findProductById = (item) => {
 let removeProduct = (item) => {
     return productModel.removeProduct(item);
 };
+let searchDataProduct = (item) => {
+    return new Promise(async (resolve, reject) => {
+        let findProductById = productModel.searchDataProduct(item);
+        if (!findProductById) {
+            reject([]);
+        }
+        resolve(findProductById);
+    });
+};
 module.exports = {
     getProduct: getProduct,
     findProductById: findProductById,
@@ -58,4 +65,5 @@ module.exports = {
     removeProduct: removeProduct,
     getNewProductLimited: getNewProductLimited,
     getProductOnCate: getProductOnCate,
+    searchDataProduct: searchDataProduct,
 };
