@@ -1,7 +1,7 @@
 import { product, category } from "./../../services/index.services";
 import multer from "multer";
-import { validationResult } from "express-validator";
 import { uploadFile } from "./../../config/configUploadImage";
+import fsExtra from "fs-extra";
 import { transProductErrors, transSuccess } from "./../../../lang/vi.lang";
 
 let storageImage = multer.diskStorage({
@@ -19,11 +19,12 @@ let storageImage = multer.diskStorage({
 });
 let upload = multer({ storage: storageImage, limits: uploadFile.image_limit }).single("image");
 let getProduct = async (req, res) => {
+    let page = req.query.page || 1;
     let dataCategory = await category.findCate();
-    let dataProduct = await product.getProduct();
+    let dataPagesProduct = await product.getProduct(page);
     res.render("admin/blocks/content/content", {
         page: "product/addProduct",
-        dataProduct: dataProduct,
+        dataProduct: dataPagesProduct.getProduct,
         dataCategory: dataCategory,
         errors: req.flash("errors"),
         success: req.flash("success"),
@@ -44,26 +45,33 @@ let createProduct = (req, res) => {
             req.flash("errors", errArr);
             return res.redirect("/admin/product");
         }
-        let errorValid = validationResult(req);
-        console.log(errorValid.mapped());
 
-        if (!errorValid.isEmpty()) {
-            let errors = Object.values(errorValid.mapped());
-            errors.forEach((item) => {
-                errArr.push(item.msg);
-            });
-            req.flash("errors", errArr);
-            return res.redirect("/admin/product");
+        let { title, amount, idCate, description } = req.body;
+
+        let arrPrice = [];
+        for (const key in req.body) {
+            const element = req.body[key];
+            if (key.match(/^price/)) {
+                let price = {}; // này tạo object rỗng
+                price["price"] = element; // tới đây thì thêm vô object có key là price value là element
+                let index = key.substr(key.length - 1); // giải thích nốt cái này nữa
+                price["size"] = req.body[`size${index}`]; //nghĩa là price.size
+                // tức là kiểu price bh nó là price nó là 1 cái mảng hay sao nói rõ ra nào
+                arrPrice.push(price);
+            }
         }
-        let { title, price, amount, idCate, description } = req.body;
+        // thi thoảng hay thấy tụi nó sài kiểu data[] kiểu này tức là sao á, đnag k hiểu lắm cái đó
+
         let item = {
             title,
-            price,
+            size: arrPrice,
             description,
             amount,
             image: req.file.filename,
             idCate,
         };
+        console.log(item);
+
         try {
             await product.createProduct(item);
             successArr.push(transSuccess.new_product_success);
@@ -93,6 +101,7 @@ let updateProduct = (req, res) => {
     let { idProduct } = req.params;
     let errArr = [];
     let successArr = [];
+    let arrSize = [];
     upload(req, res, async (errImage) => {
         if (errImage) {
             if (errImage.message) {
@@ -104,13 +113,31 @@ let updateProduct = (req, res) => {
             req.flash("errors", errArr);
             return res.redirect(`/admin/product/edit-product/${idProduct}`);
         }
-        let { title, price, amount, idCate, description } = req.body;
+        let dataIdProduct = await product.findProductById(idProduct);
+        let imageUpload = req.body.imageold;
+        if (typeof req.file !== "undefined") {
+            imageUpload = req.file.filename;
+            await fsExtra.remove(`${uploadFile.image_directory}/${dataIdProduct.image}`);
+        }
+        for (const key in req.body) {
+            let element = req.body[key];
+            // key la ten cua bien, o bai nay la ten cua name
+            // req.body[key] la gia tri bien ngoai ra co the goi thang gia tri theo kieu req.body["tenbien"]
+            if (key.match(/^price/)) {
+                let size = {};
+                size["price"] = element;
+                let index = key.substr(key.length - 1);
+                size["size"] = req.body[`size${index}`];
+                arrSize.push(size);
+            }
+        }
+        let { title, amount, idCate, description } = req.body;
         let item = {
             title,
-            price,
+            size: arrSize,
             description,
             amount,
-            image: typeof req.file !== "undefined" ? req.file.filename : req.body.imageold,
+            image: imageUpload,
             idCate,
         };
         try {
@@ -119,6 +146,8 @@ let updateProduct = (req, res) => {
             req.flash("success", successArr);
             return res.redirect("/admin/product");
         } catch (error) {
+            console.log(error);
+
             res.status(400).send(error);
         }
     });
@@ -127,6 +156,8 @@ let removeProduct = async (req, res) => {
     try {
         let idProduct = req.body.idProduct;
         let removeProduct = await product.removeProduct(idProduct);
+
+        await fsExtra.remove(`${uploadFile.image_directory}/${removeProduct.image}`);
         res.status(200).send({ success: !!removeProduct });
     } catch (error) {
         console.log(errors);

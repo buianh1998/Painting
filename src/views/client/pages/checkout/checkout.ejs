@@ -1,0 +1,117 @@
+<div class="ps-checkout pt-80 pb-80">
+    <div class="ps-container">
+        <form class="ps-checkout__form" action="/checkout" method="POST">
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <div class="ps-checkout__billing">
+                        <h3>THÔNG TIN NGƯỜI NHẬN</h3>
+                        <div class="form-group form-group--inline">
+                            <label>Họ Và Tên<span>*</span> </label>
+                            <input class="form-control" type="text" placeholder="Nhập họ tên người đặt" name="username" required />
+                        </div>
+                        <div class="form-group form-group--inline">
+                            <label>Địa Chỉ Nhận Hàng<span>*</span> </label>
+                            <input class="form-control" type="text" placeholder="Nhập Địa chỉ nhận hàng" name="address" required />
+                        </div>
+                        <div class="form-group form-group--inline">
+                            <label>Số Điện Thoại<span>*</span> </label>
+                            <input
+                                class="form-control"
+                                type="text"
+                                placeholder="Nhập số điện thoại nhận hàng"
+                                name="phoneNumber"
+                                required
+                            />
+                        </div>
+                        <div class="form-group form-group--inline">
+                            <label>Email Người Nhận<span>*</span> </label>
+                            <input class="form-control" type="email" placeholder="Nhập email nhận hàng" name="email" required />
+                        </div>
+                        <div class="form-group form-group--inline textarea">
+                            <label>Thông Tin Ghi Chú</label>
+                            <textarea class="form-control" rows="5" placeholder="Vd: Giao hàng giờ hành chính ..." name="note"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="ps-checkout__order">
+                        <header>
+                            <h3>Thông Tin Đơn Hàng</h3>
+                        </header>
+                        <div class="content">
+                            <table class="table ps-checkout__products">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase">Sản Phẩm</th>
+                                        <th class="text-uppercase">Tổng Tiền</th>
+                                    </tr>
+                                </thead>
+                                <%if(product){%>
+                                <tbody>
+                                    <%product.forEach(item =>{%>
+                                    <tr>
+                                        <td><%= item.item.title%> x<%= item.qty%></td>
+                                        <td><%= item.price%></td>
+                                    </tr>
+                                    <%})%>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase">TỔNG SỐ LƯỢNG</th>
+                                        <th class="text-uppercase"><%=totalQty%></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-uppercase">TỔNG Tiền</th>
+                                        <th class="text-uppercase"><%=totalPrice%></th>
+                                    </tr>
+                                </thead>
+                                <%}%>
+                            </table>
+                        </div>
+                        <footer>
+                            <h3>Hình Thức Thanh Toán</h3>
+                            <div class="form-group cheque">
+                                <div class="ps-radio">
+                                    <input class="form-control" type="radio" id="rdo01" name="payment" checked />
+                                    <label for="rdo01">COD: Nhận Hàng Thanh Toán</label>
+                                    <p>
+                                        Khi đơn hàng được giao tới tay bạn, bạn có quyền được kiểm tra sản phẩm của chúng tôi 1 cách kỹ
+                                        lưỡng trước khi thanh toán. Nếu bạn không hài lòng về sản phẩm, bạn có quyền được hoàn trả nhưng hãy
+                                        lưu ý đóng bọc sản phẩm thật cẩn thận lại cho cửa hàng trước khi hoàn trả.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group paypal">
+                                <!-- <div class="ps-radio ps-radio--inline">
+                                    <input class="form-control" type="radio" name="payment" id="rdo02" />
+                                    <label for="rdo02">Paypal</label>
+                                </div>
+                                <ul class="ps-payment-method">
+                                    <li>
+                                        <a href="#"><img src="images/payment/1.png" alt="" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><img src="images/payment/2.png" alt="" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><img src="images/payment/3.png" alt="" /></a>
+                                    </li>
+                                </ul> -->
+                                <%if(totalQty > 0){%>
+                                <button class="ps-btn ps-btn--fullwidth">Đặt Hàng<i class="ps-icon-next"></i></button>
+                                <%}%>
+                            </div>
+                        </footer>
+                    </div>
+                    <!-- <div class="ps-shipping">
+                        <h3>Miễn Phí Vận Chuyển Với</h3>
+                        <p>
+                            YOUR ORDER QUALIFIES FOR FREE SHIPPING.<br />
+                            <a href="#"> Singup </a> for free shipping on every order, every time.
+                        </p>
+                    </div> -->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -36,6 +36,7 @@
         <link rel="stylesheet" href="plugins/revolution/css/navigation.css" />
         <!-- Custom-->
         <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/alertify.min.css" />
         <!--HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
         <!--WARNING: Respond.js doesn't work if you view the page via file://-->
         <!--[if lt IE 9
@@ -49,6 +50,8 @@
     <body class="ps-loading">
         <%- include('./blocks/header/header.ejs')%> <%- content%> <%- include('./blocks/bottom/bottom.ejs')%>
         <!-- JS Library-->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
         <script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="plugins/bootstrap/dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="plugins/jquery-bar-rating/dist/jquery.barrating.min.js"></script>
@@ -76,7 +79,13 @@
         <script type="text/javascript" src="plugins/revolution/js/extensions/revolution.extension.actions.min.js"></script>
         <script type="text/javascript" src="plugins/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
         <script type="text/javascript" src="plugins/revolution/js/extensions/revolution.extension.migration.min.js"></script>
+        <script src="bower_js/alertify.min.js"></script>
+        <!--SweeAleate-->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
         <!-- Custom scripts-->
         <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/cart.js"></script>
+        <!-- My Js -->
+        <script type="text/javascript" src="js/mainConfig.js"></script>
     </body>
 </html>

@@ -50,7 +50,7 @@
                         <!-- <img src="uploads/imageproduct/<%= dataIdProduct.image%>" alt="" /> -->
                     </div>
                 </div>
-                <div class="ps-product__info">
+                <div class="ps-product__info" id="data-detail-<%= dataIdProduct._id%>">
                     <div class="ps-product__rating">
                         <select class="ps-rating">
                             <option value="1">1</option>
@@ -60,13 +60,20 @@
                             <option value="2">5</option>
                         </select>
                     </div>
-                    <h1><%= dataIdProduct.title%>%></h1>
+                    <h1><%= dataIdProduct.title%></h1>
                     <p class="ps-product__category"><a href="#"> <%= dataIdProduct.idCate.title%></a></p>
-                    <h3 class="ps-product__price"><%= dataIdProduct.price%> <del></del></h3>
+                    <div class="tab-content">
+                        <%dataIdProduct.size.forEach((size,index) =>{%> <%if(index == 0){%>
+                        <h3 class="ps-product__price tab-pane active" id="data-price-on-detail-product">
+                            <%= size.price%>
+                        </h3>
+                        <%}%> <%})%>
+                    </div>
                     <div class="ps-product__block ps-product__quickview">
                         <h4>Thông tin cơ bản</h4>
                         <p>
-                            <%= dataIdProduct.description.substr(0, 40)%>
+                            <%= dataIdProduct.description.substr(0, 120)%>
+                            <span>...</span>
                         </p>
                     </div>
                     <!-- <div class="ps-product__block ps-product__style">
@@ -86,29 +93,33 @@
                                 </li>
                             </ul>
                         </div> -->
-                    <div class="ps-product__block ps-product__size">
+                    <div class="ps-product__block ps-product__size" data-uid="">
                         <h4>KÍCH THƯỚC</h4>
-                        <select class="ps-select selectpicker">
-                            <option value="1">Chọn kích thước</option>
-                            <option value="2">4</option>
-                            <option value="3">4.5</option>
-                            <option value="3">5</option>
-                            <option value="3">6</option>
-                            <option value="3">6.5</option>
-                            <option value="3">7</option>
-                            <option value="3">7.5</option>
-                            <option value="3">8</option>
-                            <option value="3">8.5</option>
-                            <option value="3">9</option>
-                            <option value="3">9.5</option>
-                            <option value="3">10</option>
+                        <select class="ps-select selectpicker" id="seletet-type-size" onchange="changePriceOnSize()">
+                            <%dataIdProduct.size.forEach((size,index) =>{%>
+                            <option data-price="<%= size.price%>" value="<%= size.price%>"><%= size.size%></option>
+                            <%})%>
                         </select>
                         <div class="form-group">
-                            <input class="form-control" type="number" value="1" />
+                            <input
+                                id="data-number-qty-product"
+                                class="form-control"
+                                type="number"
+                                onchange="changeDataNumberProduct()"
+                                value="1"
+                                name="numberQty"
+                            />
+                            <!-- <input type="hidden" name="firstNumber" id="firstNumber" value="" /> -->
+                            <%dataIdProduct.size.forEach((size,index) =>{%> <%if(index == 0){%>
+                            <input type="hidden" name="firstPrice" id="firstPrice" value="<%= size.price%>" />
+                            <%}%> <%})%>
                         </div>
                     </div>
+
                     <div class="ps-product__shopping">
-                        <a class="ps-btn mb-10" href="cart.html">Thêm vào giỏ hàng<i class="ps-icon-next"></i></a>
+                        <button type="button" class="ps-btn mb-10 add-one-items-to-cart" data-uid="<%= dataIdProduct._id%>">
+                            Thêm vào giỏ hàng<i class="ps-icon-next"></i>
+                        </button>
                         <div class="ps-product__actions">
                             <a class="mr-10" href="whishlist.html"><i class="ps-icon-heart"></i></a
                             ><a href="compare.html"><i class="ps-icon-share"></i></a>
@@ -390,3 +401,23 @@
         </div>
     </div>
 </div>
+<script>
+    function changePriceOnSize() {
+        let data = $("#seletet-type-size").val();
+        $("#data-price-on-detail-product").text(data);
+        $("#firstPrice").val(data);
+    }
+    function changeDataNumberProduct() {
+        let dataNumberProduct = +$("#data-number-qty-product").val();
+        if (dataNumberProduct < 1) {
+            let dataNumberProduct = $("#data-number-qty-product").val(1);
+            alertify.notify("Số lượng đặt tối thiểu là 1", "error", 7);
+            return false;
+        }
+        if (dataNumberProduct > 10) {
+            let dataNumberProduct = $("#data-number-qty-product").val(1);
+            alertify.notify("Số lượng đặt tối đa 1 lần là 10", "error", 7);
+            return false;
+        }
+    }
+</script>

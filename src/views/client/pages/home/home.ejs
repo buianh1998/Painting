@@ -197,6 +197,8 @@
                                     <div class="ps-badge"><span>New</span></div>
                                     <!-- <div class="ps-badge ps-badge--sale ps-badge--2nd"><span>-35%</span></div> -->
                                     <a class="ps-shoe__favorite" href=""><i class="ps-icon-heart"></i></a
+                                    ><a class="ps-shoe__favorite add-one-item-to-cart" data-uid="<%= item._id%>"
+                                        ><i class="ps-icon-shopping-cart"></i></a
                                     ><img src="uploads/imageproduct/<%= item.image%>" alt="" /><a
                                         class="ps-shoe__overlay"
                                         href="/product/detail-product/<%= item._id%>"
@@ -226,7 +228,9 @@
                                         <p class="ps-shoe__categories">
                                             <a href="#"> <%= item.idCate.title%></a>
                                         </p>
-                                        <span class="ps-shoe__price"> <!--<del>£220</del>--><%= item.price%> </span>
+                                        <%item.size.forEach((price,index) =>{%> <%if(index == 0){%>
+                                        <span class="ps-shoe__price"> <%= price.price%><!--<del>£220</del>--></span>
+                                        <%}%> <%})%>
                                     </div>
                                 </div>
                             </div>
@@ -378,7 +382,7 @@
                             <div class="ps-shoe__detail">
                                 <a class="ps-shoe__name" href="product-detai.html"><%= item.title%></a>
                                 <p class="ps-shoe__categories"><a href="#"><%= item.idCate.title%></a></p>
-                                <span class="ps-shoe__price"> <del><%= item.price%></del><%= item.price%></span>
+                                <span class="ps-shoe__price"> <del></del></span>
                             </div>
                         </div>
                     </div>

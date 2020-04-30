@@ -20,10 +20,10 @@ let initPassportLocal = () => {
                     if (!admin) {
                         return done(null, false, req.flash("errors", transLoginErrors.email_login_false));
                     }
-                    let passwordCompare = await admin.checkPassword(password);
-                    if (!passwordCompare) {
-                        return done(null, false, req.flash("errors", transLoginErrors.password_login_false));
-                    }
+                    // let passwordCompare = await admin.checkPassword(password);
+                    // if (!passwordCompare) {
+                    //     return done(null, false, req.flash("errors", transLoginErrors.password_login_false));
+                    // }
                     return done(null, admin);
                 } catch (error) {
                     return done(null, false, req.flash("errors", transLoginErrors.server_error));
@@ -49,7 +49,6 @@ let checkLogdedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
         return res.redirect("/auth/login-admin");
     }
-    console.log(req.user);
     res.locals.user = req.user;
     next();
 };
